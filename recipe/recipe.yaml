@@ -1,19 +1,18 @@
 schema_version: 1
 
 context:
-  name: dataframe_image
-  version: "0.1.1"
+  version: "0.2.7"
 
 package:
-  name: ${{ name|lower }}
+  name: dataframe_image
   version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: 8d6739da53c66bd557f217237bab45943a452760b808bb7a3e635a939eed0bb5
+  url: https://github.com/dexplo/dataframe_image/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 6d96368cbf64e8291587242bd6442ed2961cc021a06d2ccf1d309fe460e77831
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   python:
@@ -27,9 +26,16 @@ requirements:
   run:
     - aiohttp
     - beautifulsoup4
+    - cssselect
+    - cssutils
+    - lxml
     - matplotlib-base >=3.1
+    - mistune
     - nbconvert >=5
     - pandas >=0.24
+    - packaging
+    - pillow
+    - playwright-python
     - python >=${{ python_min }}
     - requests
 
@@ -37,7 +43,6 @@ tests:
   - python:
       imports:
         - dataframe_image
-        - tests
       pip_check: true
       python_version:
         - ${{ python_min }}.*
